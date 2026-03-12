@@ -80,11 +80,11 @@ module Textbringer
           face = node_type_to_face(node.type.to_sym)
           next unless face
 
-          attrs = Face[face]&.attributes
-          if attrs
+          face = Face[face]
+          if face
             # Both Tree-sitter and Textbringer use byte offsets
-            highlight_on[base_pos + start_byte] = attrs
-            highlight_off[base_pos + end_byte] = attrs
+            highlight_on[base_pos + start_byte] = face
+            highlight_off[base_pos + end_byte] = true
 
             if TreeSitterAdapter.debug? && highlight_on.size <= 5
               File.open("/tmp/tree_sitter_debug.log", "a") do |f|
