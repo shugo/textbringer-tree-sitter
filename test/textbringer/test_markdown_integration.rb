@@ -85,17 +85,11 @@ class MarkdownIntegrationTest < Minitest::Test
     buffer.mode = mode
     window = Textbringer::Window.new(buffer)
 
-    # Call custom_highlight
-    mode.custom_highlight(window)
+    # Call highlight via window
+    window.highlight
 
     # Check if highlights were generated
-    highlight_on = window.instance_variable_get(:@highlight_on)
-    highlight_off = window.instance_variable_get(:@highlight_off)
-
-    # Debug output
-    puts "\n=== Markdown Highlight Debug ==="
-    puts "highlight_on keys: #{highlight_on.keys.inspect}"
-    puts "highlight_off keys: #{highlight_off.keys.inspect}"
+    highlight_on = window.highlight_on
 
     # At least something should be highlighted
     refute_empty highlight_on, "Expected some highlights to be generated"
@@ -127,9 +121,9 @@ class MarkdownIntegrationTest < Minitest::Test
     buffer.mode = mode
     window = Textbringer::Window.new(buffer)
 
-    mode.custom_highlight(window)
+    window.highlight
 
-    highlight_on = window.instance_variable_get(:@highlight_on)
+    highlight_on = window.highlight_on
 
     # There should be a highlight at position 0 (start of '#')
     assert highlight_on.key?(0), "Expected highlight at position 0 for '#'. Got: #{highlight_on.inspect}"
