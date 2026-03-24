@@ -83,7 +83,7 @@ module Textbringer
 
         if TreeSitterAdapter.debug?
           File.open("/tmp/tree_sitter_debug.log", "a") do |f|
-            f.puts "  total_highlights=#{highlight_on.size}"
+            f.puts "  total_highlights=#{ctx.highlight_on.size}"
           end
         end
       end
